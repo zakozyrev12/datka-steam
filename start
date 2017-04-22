@@ -1,0 +1,33 @@
+data = steam_200k 
+colnames(data) <- c("userID", "game","status", "hours", "X") 
+play = subset(data, status =="play") 
+purchase = subset(data, status =="purchase") 
+purchase[3] = NULL 
+purchase[4] = NULL 
+purchase[3] = NULL 
+
+
+Купленные игры в стим:
+length(unique(purchase$game))
+5153 разных игр
+length(unique(purchase$userID))
+12393 пользователей
+
+sort(table(purchase$game),decreasing=TRUE)[1:15]
+
+По времени в игре стим:
+play[5] = NULL 
+length(unique(play$game))
+3598 разных игр
+length(unique(play$userID))
+11350 пользователей
+
+play = subset(play, hours > 6)
+
+sort(table(purchase$game),decreasing=TRUE)[1:15]
+
+mean_time = as.data.frame(sort(by(play$hours, play$game, mean),decreasing=TRUE)[1:20])
+colnames(mean_time) <- c("mean of hours played") 
+
+sum_time = as.data.frame(sort(by(play$hours, play$game, sum),decreasing=TRUE)[1:20])
+colnames(sum_time) <- c("sum of hours played")
